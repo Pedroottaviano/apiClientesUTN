@@ -1,0 +1,67 @@
+kind: application
+metadata:
+  name: xp-bc-auth-agencies
+  version: v1
+  layer: bc
+  maintainer: grp_ebiz_ndcapi@here.com
+  created-by: ndc
+spec:
+  monitoring:
+    indicator_metrics:
+      - type: availability_failure_percent
+        duration: 5
+        threshold: 70
+  port: 8080
+  hpa:
+    min: 3 # Minimo de replicas
+    max: 15 # Maximo de replicas
+    min_noprod: 1 # Minimo de replicas (RR ST)
+    max_noprod: 1 # Maximo de replicas (RR ST)
+    thresholds:
+      cpu: 80 # Umbral de escalamiento. Ej: 80 => 80% de uso promedio de CPU
+      memory: 80 # Umbral de escalamiento. Ej: 80 => 80% de uso promedio de Memory
+  configResources:
+    requests:
+      cpu: 250 # CPU Request. Ej: 250 = 250m
+      memory: 2048 # Memory Request. 500 = 500Mi
+  health_check:
+    liveness: /ws/api/xp-bc-auth-agencies/v1/private/health/liveness
+    readiness: /ws/api/xp-bc-auth-agencies/v1/private/health/readiness
+  environments:
+    rr:
+      DEPLOY_ENVIRONMENT: rr
+      STATIC_URL: https://static.rr.herehere.com
+      CACHE_REDIS_HOST: '"10.146.16.140"'
+      CACHE_REDIS_PORT: '"6379"'
+      AUTH0_DOMAIN: accounts.rr.herehere.com
+      LOG4J_FORMAT_MSG_NO_LOOKUPS: '"True"'
+    st:
+      DEPLOY_ENVIRONMENT: st
+      STATIC_URL: https://static.st.herehere.com
+      CACHE_REDIS_HOST: '"10.18.58.100"'
+      CACHE_REDIS_PORT: '"6379"'
+      AUTH0_DOMAIN: accounts.st.herehere.com
+      LOG4J_FORMAT_MSG_NO_LOOKUPS: '"True"'
+    lts:
+      DEPLOY_ENVIRONMENT: dev
+    prod:
+      DEPLOY_ENVIRONMENT: prod
+      STATIC_URL: https://s.herehere.com
+      CACHE_REDIS_HOST: '"10.56.213.252"'
+      CACHE_REDIS_PORT: '"6379"'
+      AUTH0_DOMAIN: accounts.herehere.com
+      LOG4J_FORMAT_MSG_NO_LOOKUPS: '"True"'
+  resources:
+    mysql: false
+    redis: false
+    pubsub: false
+    serviceaccount: false
+    file_account: false
+  metrics:
+    path: /ws/api/xp-bc-auth-agencies/v1/private/prometheus
+    port: 8080
+  monitoring:
+    indicator_metrics:
+      - type: availability_failure_percent
+        duration: 5
+        threshold: 70

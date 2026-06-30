@@ -1,27 +1,15 @@
 package com.client.api.dolar;
 
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClient;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON;
+@FeignClient(name="dolar-service",  url="${dolar.api.url}")
+public interface DolarClient {
 
-@Component
-public class DolarClient {
+    @GetMapping("/oficial")
+    Dolar getDolarOficial();
 
-    private final RestClient dolarClient = RestClient.create();
-
-    @Value("${dolar.api.url}")
-    private String dolarUrl;
-
-    public Dolar getDolar(){
-        Dolar dolar = dolarClient.get()
-                .uri(dolarUrl)
-                .accept(APPLICATION_JSON)
-                .retrieve()
-                .body(Dolar.class);
-
-        return dolar;
-    }
+    @GetMapping("/mep")
+    Dolar getDolarMep();
 }

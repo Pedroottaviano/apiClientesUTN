@@ -6,7 +6,6 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,6 +14,10 @@ spring:
       hibernate:
         format_sql: true
 
-  dolar:
-    api:
-      url: https://dolarapi.com/v1/dolares/oficial
+dolar:
+  api:
+    url: https://dolarapi.com/v1/dolares
+
+tarjetas:
+  api:
+    url: http://localhost:8081

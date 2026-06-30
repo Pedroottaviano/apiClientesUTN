@@ -1,6 +1,8 @@
 package com.client.api.client;
 
 import com.client.api.dolar.Dolar;
+import com.client.api.tarjeta.Tarjeta;
+import com.client.api.tarjeta.TarjetaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private TarjetaClient tarjetaClient;
+
     @PostMapping("/agregar")
     public Client addClient(@RequestBody Client addedClient){
         return clientService.addClient(addedClient);
@@ -36,7 +41,7 @@ public class ClientController {
         return clientService.getClientById(id);
     }
 
-    @GetMapping("/cotizacion")
+    @GetMapping("/cotizacion/mep")
     public Dolar getCotizacion(){
         return clientService.getCotizacion();
     }
@@ -44,5 +49,10 @@ public class ClientController {
     @DeleteMapping("/eliminar/{id}")
     public void deleteClientById(@PathVariable Long id){
         clientService.deleteById(id);
+    }
+
+    @GetMapping("/{id}/tarjetas")
+    public List<Tarjeta> getTarjetasByCliente(@PathVariable Long id){
+        return tarjetaClient.getTarjetasByCliente(id);
     }
 }

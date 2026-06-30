@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "dolar.api.url",
+      "type": "java.lang.String",
+      "description": "URL de la API del dólar."
+    }
+  ]
+}

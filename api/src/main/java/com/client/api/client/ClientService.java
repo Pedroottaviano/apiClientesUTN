@@ -4,12 +4,9 @@ import com.client.api.dolar.Dolar;
 import com.client.api.dolar.DolarClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service
 public class ClientService {
@@ -33,7 +30,7 @@ public class ClientService {
     }
 
     public Dolar getCotizacion() {
-        return dolarClient.getDolar();
+        return dolarClient.getDolarOficial();
     }
 
     public void deleteById(Long id) {
