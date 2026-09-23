@@ -23,13 +23,10 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 ## ⚙️ Configuración
 
 1.  Crea una base de datos en MySQL llamada `utn`.
-2.  Configura tus credenciales en el archivo `api/src/main/resources/application.yaml`:
-    ```yaml
-    spring:
-      datasource:
-        url: jdbc:mysql://localhost:3306/utn?useSSL=false&serverTimezone=UTC
-        username: tu_usuario
-        password: tu_password
+2.  Configura tus credenciales como variables de entorno:
+    ```bash
+    export DB_USERNAME=root          # opcional, por defecto: root
+    export DB_PASSWORD=tu_password
     ```
 
 ## 🏃 Ejecución
